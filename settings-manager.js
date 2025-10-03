@@ -126,9 +126,13 @@ class SettingsManager {
     try {
       const { error } = await this.supabase
         .from('settings')
-        .upsert({ key: 'gemini_api_key', value: key });
+        .upsert({ key: 'gemini_api_key', value: key }, { onConflict: 'key' });
 
-      return !error;
+      if (error) {
+        console.error('Error setting Gemini key:', error);
+        return false;
+      }
+      return true;
     } catch (error) {
       console.error('Error setting Gemini key:', error);
       return false;
