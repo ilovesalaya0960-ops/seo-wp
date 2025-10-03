@@ -13,7 +13,7 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
-            background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -29,7 +29,7 @@
         }
         
         .header {
-            background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 40px 30px;
             text-align: center;
@@ -124,9 +124,9 @@
         
         .input-field:focus {
             outline: none;
-            border-color: #6b7280;
+            border-color: #667eea;
             background: white;
-            box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.1);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
         
         .select-field {
@@ -142,9 +142,9 @@
         
         .select-field:focus {
             outline: none;
-            border-color: #6b7280;
+            border-color: #667eea;
             background: white;
-            box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.1);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
         
         .checkbox-group {
@@ -168,15 +168,15 @@
         }
         
         .checkbox-item:hover {
-            background: rgba(107, 114, 128, 0.05);
+            background: rgba(102, 126, 234, 0.05);
         }
-        
+
         .checkbox-item input[type="checkbox"] {
             width: 20px;
             height: 20px;
             margin-right: 12px;
             cursor: pointer;
-            accent-color: #6b7280;
+            accent-color: #667eea;
         }
         
         .checkbox-item label {
@@ -187,7 +187,7 @@
         }
         
         .submit-btn {
-            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 18px 40px;
             border: none;
@@ -218,7 +218,7 @@
         
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(107, 114, 128, 0.3);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
         }
         
         .submit-btn:disabled {
@@ -237,7 +237,7 @@
         
         .spinner {
             border: 4px solid #f3f4f6;
-            border-top: 4px solid #6b7280;
+            border-top: 4px solid #667eea;
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -251,7 +251,7 @@
         }
         
         .loading p {
-            color: #6b7280;
+            color: #667eea;
             font-size: 16px;
             font-weight: 500;
         }
@@ -266,7 +266,7 @@
         }
         
         .result-header {
-            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 20px 30px;
             font-size: 1.25rem;
@@ -291,7 +291,7 @@
         }
         
         .tag {
-            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 6px 12px;
             border-radius: 20px;
@@ -332,11 +332,11 @@
         }
         
         .wp-link {
-            color: #4b5563;
+            color: #667eea;
             text-decoration: none;
             font-weight: 600;
         }
-        
+
         .wp-link:hover {
             text-decoration: underline;
         }
@@ -357,7 +357,7 @@
         }
         
         .notification.success {
-            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
         
         .notification.error {
@@ -403,8 +403,8 @@
         }
         
         .sites-list > div:hover {
-            border-color: #6b7280;
-            box-shadow: 0 4px 12px rgba(107, 114, 128, 0.1);
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
         }
         
         @media (max-width: 768px) {
@@ -436,44 +436,9 @@
             }
         }
         
-        /* CTA Banner Styles */
-        .cta-banner {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            color: white;
-            text-align: center;
-            padding: 20px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-            cursor: pointer;
-            text-decoration: none;
-            display: block;
-            transition: all 0.3s ease;
-        }
-        
-        .cta-banner:hover {
-            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
-            color: white;
-        }
-        
-        .cta-banner span {
-            display: inline-block;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
         /* Footer Styles */
         .footer {
-            background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             text-align: center;
             padding: 20px 30px;
@@ -481,14 +446,14 @@
             font-size: 0.9rem;
             border-radius: 0 0 20px 20px;
         }
-        
+
         .footer a {
             color: #e5e7eb;
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s ease;
         }
-        
+
         .footer a:hover {
             color: #f9fafb;
             text-decoration: underline;
@@ -500,15 +465,11 @@
         <div class="header">
             <button id="guideBtn" class="header-btn guide-btn">📖 คู่มือใช้งาน</button>
             <button id="settingsBtn" class="header-btn settings-btn">⚙️ ตั้งค่า</button>
-            <h1>🚀 WordPress AI <span style="font-size: 0.5em; opacity: 0.7; vertical-align: super;">v1.1</span><br><span style="font-size: 0.8em; opacity: 0.9;">SEO Automation</span></h1>
+            <h1>🚀 WordPress AI <span style="font-size: 0.5em; opacity: 0.7; vertical-align: super;">v1.1</span><br><span style="font-size: 0.8em; opacity: 0.9;">SEO Automation WordPress AI</span></h1>
             <div id="siteCountDisplay" class="site-count">
                 📊 เชื่อมต่อกับ 0 เว็บไซต์
             </div>
         </div>
-        
-        <a href="https://aiunlock.co/" target="_blank" class="cta-banner">
-            🎓 <span>คอร์ส AI No.1 ต้อง AI Unlocked 55+</span> 🚀
-        </a>
         
         <div id="mainContent" class="content">
             <form id="generateForm">
@@ -632,12 +593,12 @@
                     <h3 style="color: #374151; margin-bottom: 20px; font-size: 1.25rem;">📌 WordPress Sites</h3>
                     <div id="sitesList" class="sites-list"></div>
                     
-                    <button id="addSiteBtn" class="submit-btn" style="background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%); margin-top: 20px;">➕ เพิ่มเว็บไซต์ใหม่</button>
+                    <button id="addSiteBtn" class="submit-btn" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); margin-top: 20px;">➕ เพิ่มเว็บไซต์ใหม่</button>
                 </div>
                 
                 <div style="display: flex; gap: 15px; margin-top: 30px;">
                     <button id="saveSettingsBtn" class="submit-btn" style="flex: 1;">💾 บันทึกการตั้งค่า</button>
-                    <button id="cancelSettingsBtn" class="submit-btn" style="flex: 1; background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);">ยกเลิก</button>
+                    <button id="cancelSettingsBtn" class="submit-btn" style="flex: 1; background: linear-gradient(135deg, #718096 0%, #4a5568 100%);">ยกเลิก</button>
                 </div>
                 
                 <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #e2e8f0;">
@@ -792,7 +753,7 @@
         </div>
         
         <div class="footer">
-            © 2025 บริษัท เอไอ อันล็อก อินโนเวชั่น จำกัด. Powered by <a href="https://aiunlock.co/" target="_blank">AI Unlocked</a>
+            © 2025 WordPress AI SEO Automation. Powered by Google Gemini AI
         </div>
     </div>
 
