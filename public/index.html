@@ -1092,11 +1092,11 @@
                     renderSitesList();
                     modal.remove();
                     showNotification('เพิ่มเว็บไซต์สำเร็จ!');
+                    delete window.saveSite;
+                    delete window.cancelAddSite;
                 } else {
                     showNotification('เกิดข้อผิดพลาดในการเพิ่มเว็บไซต์', 'error');
                 }
-                delete window.saveSite;
-                delete window.cancelAddSite;
             }
             
             window.cancelAddSite = function() {
