@@ -25,9 +25,17 @@ app.use(express.static('public'));
 // Initialize settings manager
 const settingsManager = new SettingsManager();
 
+// Validate environment variables on startup
+if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  console.error('❌ CRITICAL: Missing environment variables');
+  console.error('Required: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY');
+  process.exit(1);
+}
+
 // Initialize settings on startup
 settingsManager.initializeSettings().catch(err => {
-  console.error('Error initializing settings:', err);
+  console.error('❌ Error initializing settings:', err);
+  process.exit(1);
 });
 
 class PostGenerator {
@@ -165,6 +173,16 @@ class PostGenerator {
 }
 
 const generator = new PostGenerator();
+
+// Health check endpoint for Render deployment
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// Root endpoint
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 // Settings endpoints
 app.get('/api/settings', async (req, res) => {

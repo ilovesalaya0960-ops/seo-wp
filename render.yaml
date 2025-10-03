@@ -4,9 +4,12 @@ services:
     env: node
     buildCommand: npm install
     startCommand: npm start
+    healthCheckPath: /health
     envVars:
       - key: NODE_VERSION
         value: 18
+      - key: NODE_ENV
+        value: production
       - key: SUPABASE_URL
         sync: false
       - key: SUPABASE_SERVICE_ROLE_KEY
