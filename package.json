@@ -2,7 +2,7 @@
   "name": "wordpress-ai-seo-automation",
   "version": "1.0.0",
   "description": "WordPress AI SEO Automation with Gemini",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node server.js",
