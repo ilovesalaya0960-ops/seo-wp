@@ -1,6 +1,14 @@
 -- Supabase Database Schema for WordPress AI SEO Automation
 -- Run this SQL in your Supabase SQL Editor to create the required tables
 
+-- Drop existing policies if they exist (to avoid conflicts)
+DROP POLICY IF EXISTS "Service role has full access to settings" ON settings;
+DROP POLICY IF EXISTS "Service role has full access to wordpress_sites" ON wordpress_sites;
+
+-- Drop existing triggers if they exist
+DROP TRIGGER IF EXISTS update_settings_updated_at ON settings;
+DROP TRIGGER IF EXISTS update_wordpress_sites_updated_at ON wordpress_sites;
+
 -- Create settings table
 CREATE TABLE IF NOT EXISTS settings (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -21,7 +29,7 @@ CREATE TABLE IF NOT EXISTS wordpress_sites (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Create index for faster lookups
+-- Create indexes for faster lookups
 CREATE INDEX IF NOT EXISTS idx_settings_key ON settings(key);
 CREATE INDEX IF NOT EXISTS idx_sites_name ON wordpress_sites(name);
 
@@ -47,7 +55,7 @@ INSERT INTO settings (key, value)
 VALUES ('gemini_api_key', '""'::jsonb)
 ON CONFLICT (key) DO NOTHING;
 
--- Create function to update updated_at timestamp
+-- Create or replace function to update updated_at timestamp
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
 BEGIN
