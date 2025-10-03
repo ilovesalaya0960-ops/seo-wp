@@ -25,18 +25,17 @@ app.use(express.static('public'));
 // Initialize settings manager
 const settingsManager = new SettingsManager();
 
-// Validate environment variables on startup
+// Check environment variables (warn only, don't exit)
 if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-  console.error('❌ CRITICAL: Missing environment variables');
-  console.error('Required: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY');
-  process.exit(1);
+  console.warn('⚠️  Supabase credentials not configured');
+  console.warn('Please set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in Environment Variables');
+  console.warn('Users will need to configure settings after deployment');
+} else {
+  // Initialize settings only if Supabase is configured
+  settingsManager.initializeSettings().catch(err => {
+    console.error('⚠️  Error initializing settings:', err);
+  });
 }
-
-// Initialize settings on startup
-settingsManager.initializeSettings().catch(err => {
-  console.error('❌ Error initializing settings:', err);
-  process.exit(1);
-});
 
 class PostGenerator {
   constructor() {
