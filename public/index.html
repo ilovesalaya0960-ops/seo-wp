@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordPress AI SEO Automation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+            background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .site-count {
+            font-size: 1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header-btn {
+            position: absolute;
+            top: 20px;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            z-index: 2;
+        }
+        
+        .settings-btn {
+            right: 20px;
+        }
+        
+        .guide-btn {
+            left: 20px;
+            right: auto;
+        }
+        
+        .header-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #374151;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #6b7280;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.1);
+        }
+        
+        .select-field {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            background: #f9fafb;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .select-field:focus {
+            outline: none;
+            border-color: #6b7280;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.1);
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .checkbox-item:hover {
+            background: rgba(107, 114, 128, 0.05);
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+            accent-color: #6b7280;
+        }
+        
+        .checkbox-item label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(107, 114, 128, 0.3);
+        }
+        
+        .submit-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 30px 0;
+            padding: 40px;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #6b7280;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading p {
+            color: #6b7280;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .result {
+            display: none;
+            margin-top: 40px;
+            background: #f8fafc;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .result-header {
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            color: white;
+            padding: 20px 30px;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .result-content {
+            background: white;
+            margin: 20px;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        .tag {
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .image-preview {
+            margin: 25px 0;
+            text-align: center;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+        
+        .image-preview img {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            color: #374151;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 1px solid #d1d5db;
+        }
+        
+        .error-message {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #dc2626;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 1px solid #fecaca;
+        }
+        
+        .wp-link {
+            color: #4b5563;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .wp-link:hover {
+            text-decoration: underline;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            padding: 20px 25px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            z-index: 1000;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            animation: slideIn 0.4s ease-out;
+            backdrop-filter: blur(10px);
+        }
+        
+        .notification.success {
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+        }
+        
+        .notification.error {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+        
+        .notification.warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%) scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0) scale(1);
+                opacity: 1;
+            }
+        }
+        
+        /* Settings Modal Styles */
+        .settings-content {
+            background: white;
+            margin: 20px;
+            padding: 30px;
+            border-radius: 16px;
+        }
+        
+        .settings-content h2 {
+            color: #374151;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .sites-list > div {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .sites-list > div:hover {
+            border-color: #6b7280;
+            box-shadow: 0 4px 12px rgba(107, 114, 128, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 16px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .settings-btn {
+                position: static;
+                margin-top: 20px;
+                width: auto;
+            }
+        }
+        
+        /* CTA Banner Styles */
+        .cta-banner {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-banner:hover {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+            color: white;
+        }
+        
+        .cta-banner span {
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Footer Styles */
+        .footer {
+            background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+            color: white;
+            text-align: center;
+            padding: 20px 30px;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .footer a {
+            color: #e5e7eb;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .footer a:hover {
+            color: #f9fafb;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button id="guideBtn" class="header-btn guide-btn">📖 คู่มือใช้งาน</button>
+            <button id="settingsBtn" class="header-btn settings-btn">⚙️ ตั้งค่า</button>
+            <h1>🚀 WordPress AI <span style="font-size: 0.5em; opacity: 0.7; vertical-align: super;">v1.1</span><br><span style="font-size: 0.8em; opacity: 0.9;">SEO Automation</span></h1>
+            <div id="siteCountDisplay" class="site-count">
+                📊 เชื่อมต่อกับ 0 เว็บไซต์
+            </div>
+        </div>
+        
+        <a href="https://aiunlock.co/" target="_blank" class="cta-banner">
+            🎓 <span>คอร์ส AI No.1 ต้อง AI Unlocked 55+</span> 🚀
+        </a>
+        
+        <div id="mainContent" class="content">
+            <form id="generateForm">
+                <div class="form-group" id="siteSelector" style="display: none;">
+                    <label for="selectedSite">เลือกเว็บไซต์ที่ต้องการโพสต์:</label>
+                    <select id="selectedSite" name="selectedSite" class="select-field">
+                        <option value="">-- เลือกเว็บไซต์ --</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" id="singleTopicGroup">
+                    <label for="topic">หัวข้อที่ต้องการสร้างบทความ:</label>
+                    <input type="text" id="topic" name="topic" class="input-field" placeholder="เช่น การทำ SEO สำหรับ WordPress" required>
+                </div>
+                
+                <div class="form-group" id="bulkTopicsGroup" style="display: none;">
+                    <label for="bulkTopics">หัวข้อหลายบทความ (แยกแต่ละบรรทัด):</label>
+                    <textarea id="bulkTopics" name="bulkTopics" class="input-field" rows="6" placeholder="การทำ SEO สำหรับ WordPress&#10;เทคนิค Content Marketing&#10;วิธีใช้ Google Analytics&#10;การสร้าง Landing Page"></textarea>
+                </div>
+                
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="generateImage" name="generateImage" checked>
+                        <label for="generateImage">🎨 สร้าง Featured Image</label>
+                    </div>
+                    
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="autoPublish" name="autoPublish">
+                        <label for="autoPublish">🚀 Publish ทันที</label>
+                    </div>
+                    
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="schedulePost" name="schedulePost">
+                        <label for="schedulePost">⏰ ตั้งเวลาโพสต์</label>
+                    </div>
+                    
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="includeMoneySite" name="includeMoneySite">
+                        <label for="includeMoneySite">🔗 ใส่ลิงค์ Money Site</label>
+                    </div>
+                    
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="multisitePost" name="multisitePost">
+                        <label for="multisitePost">🌐 Multisite (โพสหลายเว็บ)</label>
+                    </div>
+                    
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="bulkPost" name="bulkPost">
+                        <label for="bulkPost">📋 Bulk Post (โพสหลายบทความ)</label>
+                    </div>
+                </div>
+                
+                <div class="form-group" id="scheduleTimeGroup" style="display: none;">
+                    <label for="scheduleTime">เลือกวันและเวลาที่ต้องการโพสต์:</label>
+                    <input type="datetime-local" id="scheduleTime" name="scheduleTime" class="input-field">
+                </div>
+                
+                <div class="form-group" id="multisiteGroup" style="display: none;">
+                    <label>เลือกเว็บไซต์ที่ต้องการโพสต์:</label>
+                    <div id="multisiteList" class="checkbox-list" style="max-height: 200px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                        <!-- Sites will be populated here dynamically -->
+                    </div>
+                    <small style="color: #888; display: block; margin-top: 5px;">
+                        ✅ เลือกเว็บไซต์ที่ต้องการโพสต์ (สามารถเลือกได้หลายเว็บ)
+                    </small>
+                </div>
+                
+                <div class="form-group" id="bulkDelayGroup" style="display: none;">
+                    <label for="bulkDelay">ดีเลย์ระหว่างการโพสต์ (วินาที):</label>
+                    <select id="bulkDelay" name="bulkDelay" class="select-field">
+                        <option value="5">5 วินาที</option>
+                        <option value="10" selected>10 วินาที</option>
+                        <option value="15">15 วินาที</option>
+                        <option value="30">30 วินาที</option>
+                        <option value="60">1 นาที</option>
+                        <option value="120">2 นาที</option>
+                        <option value="300">5 นาที</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" id="moneySiteGroup" style="display: none;">
+                    <div style="margin-bottom: 15px; padding: 15px; background: #f8fafc; border-radius: 8px;">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="isInternalLink" name="isInternalLink">
+                            <label for="isInternalLink">🏠 Internal Link (ลิงค์ภายในเว็บเดียวกัน)</label>
+                        </div>
+                    </div>
+                    
+                    <div id="externalLinkGroup">
+                        <label for="moneySiteUrl">URL ของ Money Site:</label>
+                        <input type="url" id="moneySiteUrl" name="moneySiteUrl" class="input-field" placeholder="https://example.com">
+                        
+                        <label for="moneySiteKeyword" style="margin-top: 10px;">Anchor Text หรือ Keyword ของ Money Site:</label>
+                        <input type="text" id="moneySiteKeyword" name="moneySiteKeyword" class="input-field" 
+                               placeholder="เช่น: วิธีทำ SEO, เทคนิคการตลาด, โปรโมชั่นพิเศษ (ปล่อยว่างเพื่อให้ AI เลือกเอง)">
+                        <small style="color: #888; display: block; margin-top: 5px;">
+                            💡 ใส่คำหรือวลีที่อธิบายเนื้อหาของ Money Site เพื่อให้ AI ใช้เป็น anchor text ที่เหมาะสม
+                        </small>
+                    </div>
+                    
+                    <div id="internalLinkGroup" style="display: none;">
+                        <label for="internalPath">เส้นทางภายในเว็บ (ไม่กรอก = ลิงค์ไปหน้าแรก):</label>
+                        <input type="text" id="internalPath" name="internalPath" class="input-field" placeholder="/category/article-name หรือ /about (หรือปล่อยว่างสำหรับหน้าแรก)">
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">🎯 สร้างบทความ</button>
+            </form>
+        </div>
+        
+        <div id="settingsContent" class="content" style="display: none;">
+            <div class="settings-content">
+                <h2>⚙️ ตั้งค่า</h2>
+                
+                <div class="form-group">
+                    <label for="geminiKey">Gemini API Key:</label>
+                    <input type="password" id="geminiKey" class="input-field" placeholder="ใส่ Gemini API Key ของคุณ">
+                </div>
+                
+                <div style="border-top: 2px solid #e2e8f0; margin: 30px 0; padding-top: 20px;">
+                    <h3 style="color: #374151; margin-bottom: 20px; font-size: 1.25rem;">📌 WordPress Sites</h3>
+                    <div id="sitesList" class="sites-list"></div>
+                    
+                    <button id="addSiteBtn" class="submit-btn" style="background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%); margin-top: 20px;">➕ เพิ่มเว็บไซต์ใหม่</button>
+                </div>
+                
+                <div style="display: flex; gap: 15px; margin-top: 30px;">
+                    <button id="saveSettingsBtn" class="submit-btn" style="flex: 1;">💾 บันทึกการตั้งค่า</button>
+                    <button id="cancelSettingsBtn" class="submit-btn" style="flex: 1; background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);">ยกเลิก</button>
+                </div>
+                
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #e2e8f0;">
+                    <button id="clearSettingsBtn" class="submit-btn" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">🗑️ เคลียร์การตั้งค่าทั้งหมด</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="guideContent" class="content" style="display: none;">
+            <div class="settings-content">
+                <h2>📖 คู่มือการใช้งาน WordPress AI SEO Automation</h2>
+                
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: #374151; margin-bottom: 15px; font-size: 1.25rem;">🔧 การตั้งค่าเบื้องต้น</h3>
+                    <div style="background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <h4 style="color: #4b5563; margin-bottom: 10px;">1. สร้าง Gemini API Key</h4>
+                        <ol style="margin-left: 20px; line-height: 1.6;">
+                            <li>เข้าไปที่ <a href="https://makersuite.google.com/app/apikey" target="_blank" style="color: #4f46e5;">Google AI Studio</a></li>
+                            <li>คลิก "Create API Key"</li>
+                            <li>เลือก Project หรือสร้างใหม่</li>
+                            <li>คลิก "Create API key in new project"</li>
+                            <li>คัดลอก API Key ที่ได้ (ขึ้นต้นด้วย AIzaSy...)</li>
+                            <li>เก็บ API Key ไว้ในที่ปลอดภัย</li>
+                        </ol>
+                        <p style="margin-top: 10px; color: #6b7280; font-size: 0.9rem;">⚠️ หมายเหตุ: API Key นี้ใช้ในการสร้างเนื้อหาและภาพโดย AI</p>
+                    </div>
+                    
+                    <div style="background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <h4 style="color: #4b5563; margin-bottom: 10px;">2. สร้าง WordPress Application Password</h4>
+                        <ol style="margin-left: 20px; line-height: 1.6;">
+                            <li>เข้าสู่ WordPress Admin ของคุณ</li>
+                            <li>ไปที่ <strong>Users → Profile</strong> (หรือ Users → All Users → แก้ไขผู้ใช้งาน)</li>
+                            <li>เลื่อนลงไปหาส่วน <strong>"Application Passwords"</strong></li>
+                            <li>ใส่ชื่อแอป เช่น "WordPress AI Automation"</li>
+                            <li>คลิก <strong>"Add New Application Password"</strong></li>
+                            <li>คัดลอกรหัสผ่านที่ได้ (จะมีรูปแบบเป็น xxxx xxxx xxxx xxxx)</li>
+                            <li>เก็บรหัสผ่านนี้ไว้ในที่ปลอดภัย (จะแสดงครั้งเดียว)</li>
+                        </ol>
+                        <p style="margin-top: 10px; color: #6b7280; font-size: 0.9rem;">⚠️ หมายเหตุ: ใช้ Application Password นี้ ไม่ใช่รหัสผ่านล็อกอินปกติ</p>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: #374151; margin-bottom: 15px; font-size: 1.25rem;">🚀 วิธีการใช้งาน</h3>
+                    
+                    <div style="background: #f0f9ff; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <h4 style="color: #0369a1; margin-bottom: 10px;">การตั้งค่าระบบ</h4>
+                        <ol style="margin-left: 20px; line-height: 1.6;">
+                            <li>คลิก "⚙️ ตั้งค่า" ที่มุมขวาบน</li>
+                            <li>ใส่ Gemini API Key ที่ได้จากขั้นตอนที่ 1</li>
+                            <li>คลิก "➕ เพิ่มเว็บไซต์ใหม่" เพื่อเพิ่มเว็บ WordPress</li>
+                            <li>กรอกข้อมูล:
+                                <ul style="margin-left: 20px; margin-top: 5px;">
+                                    <li><strong>ชื่อเว็บไซต์:</strong> ชื่อที่จะแสดงในระบบ</li>
+                                    <li><strong>WordPress URL:</strong> https://yoursite.com</li>
+                                    <li><strong>Username:</strong> ชื่อผู้ใช้ WordPress</li>
+                                    <li><strong>Application Password:</strong> รหัสจากขั้นตอนที่ 2</li>
+                                </ul>
+                            </li>
+                            <li>คลิก "บันทึกการตั้งค่า"</li>
+                        </ol>
+                    </div>
+                    
+                    <div style="background: #f0fdf4; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <h4 style="color: #15803d; margin-bottom: 10px;">การสร้างบทความ</h4>
+                        <ol style="margin-left: 20px; line-height: 1.6;">
+                            <li>ใส่หัวข้อที่ต้องการสร้างบทความ</li>
+                            <li>เลือกตัวเลือกที่ต้องการ:
+                                <ul style="margin-left: 20px; margin-top: 5px;">
+                                    <li>🎨 สร้าง Featured Image - สร้างภาพประกอบบทความ</li>
+                                    <li>🚀 Publish ทันที - เผยแพร่ทันทีหลังสร้าง</li>
+                                    <li>⏰ ตั้งเวลาโพสต์ - กำหนดเวลาเผยแพร่</li>
+                                    <li>🔗 ใส่ลิงค์ Money Site - ใส่ลิงค์ไปยังเว็บอื่น</li>
+                                </ul>
+                            </li>
+                            <li>คลิก "🎯 สร้างบทความ"</li>
+                        </ol>
+                    </div>
+                    
+                    <div style="background: #fefce8; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <h4 style="color: #a16207; margin-bottom: 10px;">ฟีเจอร์ขั้นสูง</h4>
+                        <ul style="margin-left: 20px; line-height: 1.6;">
+                            <li><strong>🌐 Multisite:</strong> โพสต์ไปหลายเว็บพร้อมกัน</li>
+                            <li><strong>📋 Bulk Post:</strong> สร้างหลายบทความพร้อมกัน</li>
+                            <li><strong>🏠 Internal Link:</strong> ใส่ลิงค์ภายในเว็บเดียวกัน</li>
+                            <li><strong>⏰ Schedule:</strong> ตั้งเวลาเผยแพร่บทความ</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: #374151; margin-bottom: 15px; font-size: 1.25rem;">❓ คำถามที่พบบ่อย</h3>
+                    
+                    <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 15px;">
+                        <div style="padding: 15px; border-bottom: 1px solid #f3f4f6; background: #f9fafb; font-weight: 600;">
+                            Q: ทำไมไม่สามารถเชื่อมต่อกับ WordPress ได้?
+                        </div>
+                        <div style="padding: 15px;">
+                            A: ตรวจสอบ:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>URL ถูกต้อง (มี https://)</li>
+                                <li>ใช้ Application Password ไม่ใช่รหัสผ่านปกติ</li>
+                                <li>WordPress เปิดใช้งาน REST API</li>
+                                <li>ผู้ใช้มีสิทธิ์เขียนบทความ</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 15px;">
+                        <div style="padding: 15px; border-bottom: 1px solid #f3f4f6; background: #f9fafb; font-weight: 600;">
+                            Q: Featured Image ไม่แสดงใน WordPress?
+                        </div>
+                        <div style="padding: 15px;">
+                            A: ตรวจสอบ:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>ผู้ใช้มีสิทธิ์อัปโหลดไฟล์</li>
+                                <li>WordPress รองรับไฟล์ .png</li>
+                                <li>ขนาดไฟล์ไม่เกินที่กำหนด</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px;">
+                        <div style="padding: 15px; border-bottom: 1px solid #f3f4f6; background: #f9fafb; font-weight: 600;">
+                            Q: AI สร้างเนื้อหาไม่ถูกต้อง?
+                        </div>
+                        <div style="padding: 15px;">
+                            A: ลองปรับปรุง:
+                            <ul style="margin-left: 20px; margin-top: 5px;">
+                                <li>ใส่หัวข้อที่ชัดเจนและเฉพาะเจาะจง</li>
+                                <li>ตรวจสอบ Gemini API Key ที่ถูกต้อง</li>
+                                <li>ลองสร้างใหม่หากผลลัพธ์ไม่พอใจ</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 15px; margin-top: 30px;">
+                    <button id="backToMainBtn" class="submit-btn" style="flex: 1;">← กลับหน้าหลัก</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="loading">
+            <div class="spinner"></div>
+            <p>กำลังสร้างเนื้อหา... กรุณารอสักครู่</p>
+        </div>
+        
+        <div class="result" id="result">
+            <div class="result-header">📝 ผลลัพธ์</div>
+            <div id="resultContent"></div>
+        </div>
+        
+        <div class="footer">
+            © 2025 บริษัท เอไอ อันล็อก อินโนเวชั่น จำกัด. Powered by <a href="https://aiunlock.co/" target="_blank">AI Unlocked</a>
+        </div>
+    </div>
+
+    <script>
+        // Settings Management
+        class SettingsManager {
+            constructor() {
+                this.settings = {
+                    geminiKey: '',
+                    sites: []
+                };
+                this.loadSettings();
+            }
+            
+            async loadSettings() {
+                try {
+                    const response = await fetch('/api/settings');
+                    const data = await response.json();
+                    this.settings = {
+                        geminiKey: data.geminiKey,
+                        sites: data.sites || []
+                    };
+                    return this.settings;
+                } catch (error) {
+                    console.error('Error loading settings:', error);
+                    return this.settings;
+                }
+            }
+            
+            async saveGeminiKey(key) {
+                try {
+                    const response = await fetch('/api/settings/gemini', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ geminiKey: key })
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        this.settings.geminiKey = key;
+                        return true;
+                    }
+                    return false;
+                } catch (error) {
+                    console.error('Error saving Gemini key:', error);
+                    return false;
+                }
+            }
+            
+            getGeminiKey() {
+                return this.settings.geminiKey;
+            }
+            
+            getSites() {
+                return this.settings.sites || [];
+            }
+            
+            async addSite(site) {
+                try {
+                    const response = await fetch('/api/settings/sites', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(site)
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        this.settings.sites.push(result.site);
+                        return true;
+                    }
+                    return false;
+                } catch (error) {
+                    console.error('Error adding site:', error);
+                    return false;
+                }
+            }
+            
+            async removeSite(siteId) {
+                try {
+                    const response = await fetch(`/api/settings/sites/${siteId}`, {
+                        method: 'DELETE'
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        this.settings.sites = this.settings.sites.filter(s => s.id !== siteId);
+                        return true;
+                    }
+                    return false;
+                } catch (error) {
+                    console.error('Error removing site:', error);
+                    return false;
+                }
+            }
+        }
+        
+        const settingsManager = new SettingsManager();
+        
+        // UI Elements
+        const form = document.getElementById('generateForm');
+        const loading = document.querySelector('.loading');
+        const result = document.getElementById('result');
+        const resultContent = document.getElementById('resultContent');
+        const settingsBtn = document.getElementById('settingsBtn');
+        const mainContent = document.getElementById('mainContent');
+        const settingsContent = document.getElementById('settingsContent');
+        const siteSelector = document.getElementById('siteSelector');
+        const selectedSite = document.getElementById('selectedSite');
+        
+        // UI Navigation
+        async function showSettings() {
+            mainContent.style.display = 'none';
+            settingsContent.style.display = 'block';
+            document.getElementById('guideContent').style.display = 'none';
+            
+            await settingsManager.loadSettings();
+            const geminiKeyInput = document.getElementById('geminiKey');
+            const keyValue = settingsManager.getGeminiKey();
+            if (keyValue === '***SET***') {
+                geminiKeyInput.value = '';
+                geminiKeyInput.placeholder = '✅ API Key ได้ตั้งค่าแล้ว - ใส่ key ใหม่หากต้องการเปลี่ยน';
+            } else {
+                geminiKeyInput.value = keyValue;
+                geminiKeyInput.placeholder = 'ใส่ Gemini API Key ของคุณ';
+            }
+            renderSitesList();
+        }
+        
+        async function showMain() {
+            mainContent.style.display = 'block';
+            settingsContent.style.display = 'none';
+            document.getElementById('guideContent').style.display = 'none';
+            await updateSiteSelector();
+        }
+        
+        function showGuide() {
+            mainContent.style.display = 'none';
+            settingsContent.style.display = 'none';
+            document.getElementById('guideContent').style.display = 'block';
+        }
+        
+        function renderSitesList() {
+            const sitesList = document.getElementById('sitesList');
+            const sites = settingsManager.getSites();
+            
+            if (sites.length === 0) {
+                sitesList.innerHTML = '<p style="color: #666;">ยังไม่มีเว็บไซต์ที่เพิ่ม</p>';
+                return;
+            }
+            
+            sitesList.innerHTML = sites.map(site => `
+                <div style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div style="flex: 1;">
+                            <strong>${site.name}</strong><br>
+                            <small style="color: #666;">${site.url}</small><br>
+                            <small style="color: #666;">User: ${site.username}</small>
+                        </div>
+                        <button onclick="removeSite('${site.id}')" style="width: auto; padding: 5px 10px; background-color: #f44336;">ลบ</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        async function updateSiteSelector() {
+            await settingsManager.loadSettings();
+            const sites = settingsManager.getSites();
+            
+            // Update site count display
+            const siteCountDisplay = document.getElementById('siteCountDisplay');
+            siteCountDisplay.textContent = `📊 เชื่อมต่อกับ ${sites.length} เว็บไซต์`;
+            
+            if (sites.length > 0) {
+                siteSelector.style.display = 'block';
+                selectedSite.innerHTML = '<option value="">-- เลือกเว็บไซต์ --</option>' + 
+                    sites.map(site => `<option value="${site.id}">${site.name}</option>`).join('');
+                
+            } else {
+                siteSelector.style.display = 'none';
+            }
+        }
+        
+        
+        window.removeSite = function(siteId) {
+            const notification = document.createElement('div');
+            notification.innerHTML = `
+                <div style="background: rgba(0,0,0,0.8); position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 2000; display: flex; align-items: center; justify-content: center;">
+                    <div style="background: white; padding: 30px; border-radius: 10px; text-align: center; color: #333;">
+                        <p style="margin-bottom: 20px;">ต้องการลบเว็บไซต์นี้หรือไม่?</p>
+                        <div style="display: flex; gap: 10px; justify-content: center;">
+                            <button onclick="confirmRemove('${siteId}')" style="background: #f44336; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">ลบ</button>
+                            <button onclick="cancelRemove()" style="background: #666; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            window.confirmRemove = async function(id) {
+                const success = await settingsManager.removeSite(id);
+                if (success) {
+                    renderSitesList();
+                    notification.remove();
+                    showNotification('ลบเว็บไซต์สำเร็จ!');
+                } else {
+                    showNotification('เกิดข้อผิดพลาดในการลบเว็บไซต์', 'error');
+                }
+                delete window.confirmRemove;
+                delete window.cancelRemove;
+            }
+            
+            window.cancelRemove = function() {
+                notification.remove();
+                delete window.confirmRemove;
+                delete window.cancelRemove;
+            }
+        }
+        
+        // Event Listeners
+        settingsBtn.addEventListener('click', showSettings);
+        document.getElementById('guideBtn').addEventListener('click', showGuide);
+        document.getElementById('backToMainBtn').addEventListener('click', showMain);
+        
+        document.getElementById('cancelSettingsBtn').addEventListener('click', showMain);
+        
+        document.getElementById('saveSettingsBtn').addEventListener('click', async () => {
+            const geminiKey = document.getElementById('geminiKey').value;
+            if (geminiKey) {
+                const success = await settingsManager.saveGeminiKey(geminiKey);
+                if (success) {
+                    showNotification('บันทึกการตั้งค่าสำเร็จ!');
+                    showMain();
+                } else {
+                    showNotification('เกิดข้อผิดพลาดในการบันทึกการตั้งค่า', 'error');
+                }
+            } else {
+                showMain();
+            }
+        });
+        
+        document.getElementById('clearSettingsBtn').addEventListener('click', () => {
+            const modal = document.createElement('div');
+            modal.innerHTML = `
+                <div style="background: rgba(0,0,0,0.8); position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 2000; display: flex; align-items: center; justify-content: center;">
+                    <div style="background: white; padding: 30px; border-radius: 10px; text-align: center; color: #333;">
+                        <h3 style="margin-bottom: 20px; color: #dc2626;">⚠️ ยืนยันการเคลียร์การตั้งค่า</h3>
+                        <p style="margin-bottom: 30px; color: #666;">การดำเนินการนี้จะลบ Gemini API Key และเว็บไซต์ทั้งหมด<br>และไม่สามารถกู้คืนได้</p>
+                        <div style="display: flex; gap: 15px; justify-content: center;">
+                            <button onclick="confirmClearSettings()" style="background: #ef4444; color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">ยืนยันการลบ</button>
+                            <button onclick="cancelClearSettings()" style="background: #6b7280; color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            
+            window.confirmClearSettings = async function() {
+                try {
+                    const response = await fetch('/api/settings/clear', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        // Reset local settings
+                        settingsManager.settings = { geminiKey: '', sites: [] };
+                        
+                        // Clear UI
+                        document.getElementById('geminiKey').value = '';
+                        document.getElementById('geminiKey').placeholder = 'ใส่ Gemini API Key ของคุณ';
+                        renderSitesList();
+                        updateSiteSelector();
+                        
+                        modal.remove();
+                        showNotification('เคลียร์การตั้งค่าสำเร็จ!');
+                        showMain();
+                    } else {
+                        showNotification('เกิดข้อผิดพลาดในการเคลียร์การตั้งค่า', 'error');
+                    }
+                } catch (error) {
+                    showNotification('เกิดข้อผิดพลาด: ' + error.message, 'error');
+                }
+                delete window.confirmClearSettings;
+                delete window.cancelClearSettings;
+            }
+            
+            window.cancelClearSettings = function() {
+                modal.remove();
+                delete window.confirmClearSettings;
+                delete window.cancelClearSettings;
+            }
+        });
+        
+        document.getElementById('addSiteBtn').addEventListener('click', () => {
+            const modal = document.createElement('div');
+            modal.innerHTML = `
+                <div style="background: rgba(0,0,0,0.8); position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 2000; display: flex; align-items: center; justify-content: center;">
+                    <div style="background: white; padding: 30px; border-radius: 10px; width: 90%; max-width: 500px; color: #333;">
+                        <h3 style="margin-bottom: 20px; text-align: center;">เพิ่มเว็บไซต์ WordPress</h3>
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; margin-bottom: 5px;">ชื่อเว็บไซต์:</label>
+                            <input type="text" id="siteName" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; margin-bottom: 5px;">WordPress URL:</label>
+                            <input type="url" id="siteUrl" placeholder="https://example.com" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; margin-bottom: 5px;">Username:</label>
+                            <input type="text" id="siteUsername" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 5px;">Application Password:</label>
+                            <input type="password" id="sitePassword" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button onclick="saveSite()" style="flex: 1; background: #4CAF50; color: white; padding: 12px; border: none; border-radius: 5px; cursor: pointer;">เพิ่มเว็บไซต์</button>
+                            <button onclick="cancelAddSite()" style="flex: 1; background: #666; color: white; padding: 12px; border: none; border-radius: 5px; cursor: pointer;">ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            
+            window.saveSite = async function() {
+                const name = document.getElementById('siteName').value;
+                const url = document.getElementById('siteUrl').value;
+                const username = document.getElementById('siteUsername').value;
+                const password = document.getElementById('sitePassword').value;
+                
+                if (!name || !url || !username || !password) {
+                    showNotification('กรุณากรอกข้อมูลให้ครบ', 'warning');
+                    return;
+                }
+                
+                const success = await settingsManager.addSite({ name, url, username, password });
+                if (success) {
+                    renderSitesList();
+                    modal.remove();
+                    showNotification('เพิ่มเว็บไซต์สำเร็จ!');
+                } else {
+                    showNotification('เกิดข้อผิดพลาดในการเพิ่มเว็บไซต์', 'error');
+                }
+                delete window.saveSite;
+                delete window.cancelAddSite;
+            }
+            
+            window.cancelAddSite = function() {
+                modal.remove();
+                delete window.saveSite;
+                delete window.cancelAddSite;
+            }
+        });
+        
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 4000);
+        }
+        
+        
+        // Schedule toggle
+        document.getElementById('schedulePost').addEventListener('change', function() {
+            const scheduleTimeGroup = document.getElementById('scheduleTimeGroup');
+            const autoPublish = document.getElementById('autoPublish');
+            
+            if (this.checked) {
+                scheduleTimeGroup.style.display = 'block';
+                autoPublish.checked = false;
+                // Set minimum time to now + 1 minute
+                const now = new Date();
+                now.setMinutes(now.getMinutes() + 1);
+                document.getElementById('scheduleTime').min = now.toISOString().slice(0, 16);
+            } else {
+                scheduleTimeGroup.style.display = 'none';
+            }
+        });
+        
+        document.getElementById('autoPublish').addEventListener('change', function() {
+            if (this.checked) {
+                document.getElementById('schedulePost').checked = false;
+                document.getElementById('scheduleTimeGroup').style.display = 'none';
+            }
+        });
+        
+        // Money site toggle
+        document.getElementById('includeMoneySite').addEventListener('change', function() {
+            const moneySiteGroup = document.getElementById('moneySiteGroup');
+            if (this.checked) {
+                moneySiteGroup.style.display = 'block';
+            } else {
+                moneySiteGroup.style.display = 'none';
+                // Reset internal link checkbox when hiding
+                document.getElementById('isInternalLink').checked = false;
+                document.getElementById('externalLinkGroup').style.display = 'block';
+                document.getElementById('internalLinkGroup').style.display = 'none';
+            }
+        });
+        
+        // Internal link toggle
+        document.getElementById('isInternalLink').addEventListener('change', function() {
+            const externalLinkGroup = document.getElementById('externalLinkGroup');
+            const internalLinkGroup = document.getElementById('internalLinkGroup');
+            
+            if (this.checked) {
+                externalLinkGroup.style.display = 'none';
+                internalLinkGroup.style.display = 'block';
+            } else {
+                externalLinkGroup.style.display = 'block';
+                internalLinkGroup.style.display = 'none';
+            }
+        });
+        
+        // Multisite toggle
+        document.getElementById('multisitePost').addEventListener('change', function() {
+            const multisiteGroup = document.getElementById('multisiteGroup');
+            const siteSelector = document.getElementById('siteSelector');
+            const autoPublish = document.getElementById('autoPublish');
+            const schedulePost = document.getElementById('schedulePost');
+            const bulkPost = document.getElementById('bulkPost');
+            
+            if (this.checked) {
+                multisiteGroup.style.display = 'block';
+                siteSelector.style.display = 'none'; // Hide single site selector
+                
+                // Populate multisite list
+                const multisiteList = document.getElementById('multisiteList');
+                const sites = settingsManager.getSites();
+                multisiteList.innerHTML = '';
+                
+                if (sites.length === 0) {
+                    multisiteList.innerHTML = '<p style="color: #999;">ยังไม่มีเว็บไซต์ที่เพิ่มเข้ามา</p>';
+                } else {
+                    sites.forEach(site => {
+                        const siteDiv = document.createElement('div');
+                        siteDiv.style.marginBottom = '8px';
+                        siteDiv.innerHTML = `
+                            <label style="display: flex; align-items: center; cursor: pointer;">
+                                <input type="checkbox" name="multisiteSites" value="${site.id}" style="margin-right: 8px;">
+                                <span>${site.name} (${new URL(site.url).hostname})</span>
+                            </label>
+                        `;
+                        multisiteList.appendChild(siteDiv);
+                    });
+                }
+                
+                // Allow schedule post for multisite
+                
+                // Keep bulk post state as is
+                // User can use both multisite and bulk together
+            } else {
+                multisiteGroup.style.display = 'none';
+                // Show site selector back if there are sites
+                if (settingsManager.getSites().length > 0) {
+                    siteSelector.style.display = 'block';
+                }
+            }
+        });
+        
+        // Bulk post toggle
+        document.getElementById('bulkPost').addEventListener('change', function() {
+            const bulkTopicsGroup = document.getElementById('bulkTopicsGroup');
+            const singleTopicGroup = document.getElementById('singleTopicGroup');
+            const bulkDelayGroup = document.getElementById('bulkDelayGroup');
+            const multisitePost = document.getElementById('multisitePost');
+            const autoPublish = document.getElementById('autoPublish');
+            const schedulePost = document.getElementById('schedulePost');
+            
+            if (this.checked) {
+                bulkTopicsGroup.style.display = 'block';
+                singleTopicGroup.style.display = 'none';
+                bulkDelayGroup.style.display = 'block';
+                
+                // Remove required from topic field when bulk posting
+                document.getElementById('topic').removeAttribute('required');
+                
+                // Allow schedule for bulk post
+                
+                // Keep multisite state as is
+                // User can use both bulk and multisite together
+                // Hide single site selector if multisite is enabled
+                if (!multisitePost.checked && settingsManager.getSites().length > 0) {
+                    document.getElementById('siteSelector').style.display = 'block';
+                }
+            } else {
+                bulkTopicsGroup.style.display = 'none';
+                singleTopicGroup.style.display = 'block';
+                bulkDelayGroup.style.display = 'none';
+                
+                // Add required back to topic field
+                document.getElementById('topic').setAttribute('required', '');
+            }
+        });
+        
+        // Initialize
+        updateSiteSelector();
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const topic = document.getElementById('topic').value;
+            const generateImage = document.getElementById('generateImage').checked;
+            const autoPublish = document.getElementById('autoPublish').checked;
+            const schedulePost = document.getElementById('schedulePost').checked;
+            const scheduleTime = document.getElementById('scheduleTime').value;
+            const includeMoneySite = document.getElementById('includeMoneySite').checked;
+            const isInternalLink = document.getElementById('isInternalLink').checked;
+            const moneySiteUrl = document.getElementById('moneySiteUrl').value;
+            const moneySiteKeyword = document.getElementById('moneySiteKeyword').value;
+            const internalPath = document.getElementById('internalPath').value;
+            const siteId = document.getElementById('selectedSite').value;
+            const multisitePost = document.getElementById('multisitePost').checked;
+            // Get selected sites for multisite posting
+            const selectedMultisites = [];
+            if (multisitePost) {
+                const checkboxes = document.querySelectorAll('input[name="multisiteSites"]:checked');
+                checkboxes.forEach(checkbox => {
+                    selectedMultisites.push(checkbox.value);
+                });
+            }
+            const bulkPost = document.getElementById('bulkPost').checked;
+            const bulkTopics = document.getElementById('bulkTopics').value;
+            const bulkDelay = document.getElementById('bulkDelay').value;
+            
+            // Check settings
+            await settingsManager.loadSettings();
+            const geminiKey = settingsManager.getGeminiKey();
+            if (!geminiKey || geminiKey === '') {
+                showNotification('กรุณาตั้งค่า Gemini API Key ก่อน', 'warning');
+                showSettings();
+                return;
+            }
+            
+            if ((autoPublish || schedulePost) && !multisitePost && !bulkPost && !siteId) {
+                showNotification('กรุณาเลือกเว็บไซต์ที่ต้องการโพสต์', 'warning');
+                return;
+            }
+            
+            if (multisitePost && selectedMultisites.length === 0) {
+                showNotification('กรุณาเลือกอย่างน้อย 1 เว็บไซต์ที่ต้องการโพสต์', 'warning');
+                return;
+            }
+            
+            if (bulkPost && !bulkTopics.trim()) {
+                showNotification('กรุณาใส่หัวข้อสำหรับ Bulk Post', 'warning');
+                return;
+            }
+            
+            if (bulkPost && !multisitePost && !siteId) {
+                showNotification('กรุณาเลือกเว็บไซต์สำหรับ Bulk Post', 'warning');
+                return;
+            }
+            
+            if (schedulePost && !scheduleTime) {
+                showNotification('กรุณาเลือกวันและเวลาที่ต้องการโพสต์', 'warning');
+                return;
+            }
+            
+            if (schedulePost && new Date(scheduleTime) <= new Date()) {
+                showNotification('เวลาที่เลือกต้องเป็นอนาคต', 'warning');
+                return;
+            }
+            
+            if (includeMoneySite) {
+                if (!isInternalLink && !moneySiteUrl) {
+                    showNotification('กรุณาใส่ URL ของ Money Site', 'warning');
+                    return;
+                }
+                // Note: Internal link can be empty to link to main domain
+            }
+            
+            // Show loading
+            loading.style.display = 'block';
+            result.style.display = 'none';
+            form.querySelector('button').disabled = true;
+            
+            try {
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        topic: bulkPost ? null : topic,
+                        generateImage,
+                        autoPublish: autoPublish && !schedulePost,
+                        scheduleTime: schedulePost ? scheduleTime : null,
+                        includeMoneySite,
+                        isInternalLink,
+                        moneySiteUrl: includeMoneySite && !isInternalLink ? moneySiteUrl : null,
+                        moneySiteKeyword: includeMoneySite && !isInternalLink ? moneySiteKeyword : null,
+                        internalPath: includeMoneySite && isInternalLink ? (internalPath || '') : null,
+                        siteId,
+                        multisitePost,
+                        selectedMultisites: multisitePost ? selectedMultisites : null,
+                        bulkPost,
+                        bulkTopics: bulkPost ? bulkTopics.split('\n').filter(t => t.trim()) : null,
+                        bulkDelay: bulkPost ? parseInt(bulkDelay) : null
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error || 'Something went wrong');
+                }
+                
+                // Display results
+                let html = '';
+                
+                if (data.bulk && data.multisite) {
+                    // Bulk + Multisite results
+                    html += `
+                        <div class="result-content">
+                            <h3>📋 Bulk Multisite Results</h3>
+                            <p style="color: #6b7280; margin: 10px 0;">
+                                ${data.totalTopics} หัวข้อ × ${data.totalSites} เว็บไซต์ = ${data.totalProcessed} โพสต์<br>
+                                ใช้ดีเลย์ ${data.delayUsed} วินาที ระหว่างการโพสต์
+                            </p>
+                        </div>
+                    `;
+                } else if (data.bulk) {
+                    // Bulk results
+                    html += `
+                        <div class="result-content">
+                            <h3>📋 Bulk Post Results (${data.totalProcessed} บทความ)</h3>
+                            <p style="color: #6b7280; margin: 10px 0;">ใช้ดีเลย์ ${data.delayUsed} วินาที ระหว่างการโพสต์</p>
+                        </div>
+                    `;
+                    
+                    data.results.forEach((result, index) => {
+                        if (result.error) {
+                            html += `
+                                <div style="padding: 10px 15px; margin: 5px 0; background: #fee2e2; border-radius: 8px; display: flex; align-items: center; justify-content: space-between;">
+                                    <div style="flex: 1;">
+                                        <span style="font-weight: 600; color: #dc2626;">
+                                            ${result.topicIndex || result.index}. ${result.topic}
+                                            ${result.site ? ` [${result.site}]` : ''}
+                                        </span>
+                                    </div>
+                                    <div style="margin-left: 20px;">
+                                        <span style="color: #ef4444; font-weight: 600;">❌ ล้มเหลว</span>
+                                    </div>
+                                </div>
+                            `;
+                        } else {
+                            // Compact display for bulk posts
+                            html += `
+                                <div style="padding: 10px 15px; margin: 5px 0; background: #f8fafc; border-radius: 8px; display: flex; align-items: center; justify-content: space-between;">
+                                    <div style="flex: 1;">
+                                        <span style="font-weight: 600; color: #374151;">
+                                            ${result.topicIndex || result.index}. ${result.topic}
+                                            ${result.site ? ` [${result.site}]` : ''}
+                                        </span>
+                                    </div>
+                                    <div style="margin-left: 20px;">
+                                        ${result.publishResult ? (
+                                            result.publishResult.success ? 
+                                                `<span style="color: #10b981; font-weight: 600;">✅ สำเร็จ</span>` : 
+                                                `<span style="color: #ef4444; font-weight: 600;">❌ ล้มเหลว</span>`
+                                        ) : '<span style="color: #6b7280;">⏳ รอ publish</span>'}
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    });
+                } else if (data.multisite) {
+                    // Multisite results
+                    html += `
+                        <div class="result-content">
+                            <h3>🌐 Multisite Results (${data.results.length} เว็บไซต์)</h3>
+                        </div>
+                    `;
+                    
+                    data.results.forEach((result, index) => {
+                        html += `
+                            <div class="result-content" style="border-left: 4px solid #6b7280; margin: 20px 0;">
+                                <h4>📝 ${result.site} (#${index + 1})</h4>
+                                <h5 style="color: #374151; margin: 10px 0;">${result.postData.title}</h5>
+                                <div class="tags">
+                                    ${result.postData.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                                </div>
+                                
+                                <div style="margin: 15px 0; max-height: 200px; overflow-y: auto; background: #f8fafc; padding: 15px; border-radius: 8px;">
+                                    ${result.postData.content.substring(0, 500)}...
+                                </div>
+                                
+                                ${result.imageUrl ? `
+                                    <div style="text-align: center; margin: 15px 0;">
+                                        <img src="${result.imageUrl}" alt="Featured Image" style="max-width: 200px; border-radius: 8px;">
+                                    </div>
+                                ` : ''}
+                                
+                                ${result.publishResult ? (
+                                    result.publishResult.success ? (
+                                        result.publishResult.scheduled ? `
+                                            <div class="success-message">
+                                                ⏰ ${result.site}: กำหนดเวลาโพสต์สำเร็จ!
+                                                <br><small>จะเผยแพร่ในวันที่ ${new Date(result.publishResult.scheduledTime).toLocaleString('th-TH')}</small>
+                                            </div>
+                                        ` : `
+                                            <div class="success-message">
+                                                ✅ ${result.site}: Publish สำเร็จ! 
+                                                <a href="${result.publishResult.url}" target="_blank" class="wp-link">
+                                                    ดูโพสต์
+                                                </a>
+                                            </div>
+                                        `
+                                    ) : `
+                                        <div class="error-message">
+                                            ❌ ${result.site}: ${result.publishResult.error}
+                                        </div>
+                                    `
+                                ) : ''}
+                            </div>
+                        `;
+                    });
+                } else {
+                    // Single site results (original logic)
+                    html = `
+                        <div class="result-content">
+                            <h3>${data.postData.title}</h3>
+                            <div class="tags">
+                                ${data.postData.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="result-content">
+                            <h4>เนื้อหา:</h4>
+                            ${data.postData.content}
+                        </div>
+                    `;
+                    
+                    if (data.imageUrl) {
+                        html += `
+                            <div class="image-preview">
+                                <h4>Featured Image:</h4>
+                                <img src="${data.imageUrl}" alt="Featured Image">
+                            </div>
+                        `;
+                    }
+                    
+                    if (data.publishResult) {
+                        if (data.publishResult.success) {
+                            if (data.publishResult.scheduled) {
+                                html += `
+                                    <div class="success-message">
+                                        ⏰ กำหนดเวลาโพสต์สำเร็จ! 
+                                        WordPress จะเผยแพร่โดยอัตโนมัติในวันที่ ${new Date(data.publishResult.scheduledTime).toLocaleString('th-TH')}
+                                        <br><small>สามารถจัดการได้ในหน้า WordPress Admin</small>
+                                    </div>
+                                `;
+                            } else {
+                                html += `
+                                    <div class="success-message">
+                                        ✅ Publish สำเร็จ! 
+                                        <a href="${data.publishResult.url}" target="_blank" class="wp-link">
+                                            ดูโพสต์ที่เผยแพร่
+                                        </a>
+                                    </div>
+                                `;
+                            }
+                        } else {
+                            html += `
+                                <div class="error-message">
+                                    ❌ Publish ไม่สำเร็จ: ${data.publishResult.error}
+                                </div>
+                            `;
+                        }
+                    }
+                }
+                
+                resultContent.innerHTML = html;
+                result.style.display = 'block';
+                
+            } catch (error) {
+                resultContent.innerHTML = `
+                    <div class="error-message">
+                        ❌ เกิดข้อผิดพลาด: ${error.message}
+                    </div>
+                `;
+                result.style.display = 'block';
+            } finally {
+                loading.style.display = 'none';
+                form.querySelector('button').disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

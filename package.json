@@ -1,0 +1,35 @@
+{
+  "name": "wordpress-ai-seo-automation",
+  "version": "1.0.0",
+  "description": "WordPress AI SEO Automation with Gemini",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "server": "node server.js",
+    "server:dev": "node --watch server.js"
+  },
+  "keywords": [
+    "wordpress",
+    "ai",
+    "gemini",
+    "seo",
+    "automation",
+    "content-generation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@google/genai": "^1.11.0",
+    "@supabase/supabase-js": "^2.58.0",
+    "axios": "^1.7.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "form-data": "^4.0.0",
+    "inquirer": "^10.2.2",
+    "node-cron": "^3.0.3",
+    "serverless-http": "^4.0.0"
+  }
+}

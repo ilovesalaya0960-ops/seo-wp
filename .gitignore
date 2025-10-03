@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment variables
+.env
+.env.local
+
+# Settings and backups (now using Supabase instead)
+settings.json
+settings-backup-*.json
+
+# Generated images
+*.png
+*.jpg
+*.jpeg
+post-*.json
+featured-image-*.png
+public/images/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Netlify
+.netlify/
+# Local Netlify folder
+.netlify
